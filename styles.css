@@ -393,7 +393,7 @@ font-size: 15px;
     }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 768px) {
     .header h1 {
         font-size: 1.1em;
     }
@@ -413,36 +413,6 @@ font-size: 15px;
    RESPONSIVE: NAVEGACIÓN INFERIOR POMODORO
    ========================================== */
 @media (max-width: 768px) {
-    .pomodoro {
-        height: 25vh;
-        /* Reduce un poco la altura de la sección inferior */
-    }
-
-    .navegacion {
-        width: 92%;
-        max-width: 92%;
-        padding: 0.8em;
-        bottom: 8%;
-        left: 50%;
-        transform: translateX(-50%);
-    }
-
-    .navegacion a {
-        font-size: 0.95em;
-        gap: 0.3em;
-    }
-
-    .navegacion a i {
-        font-size: 13px;
-    }
-
-    .pomodoro span {
-        font-size: 1.4em;
-        padding: 0.5em;
-    }
-}
-
-@media (max-width: 480px) {
     .pomodoro {
         height: 22vh;
     }
@@ -529,39 +499,6 @@ font-size: 15px;
         font-size: 0.9em;
         margin: 0.2em;
         border-radius: 15px;
-    }
-}
-
-@media (max-width: 480px) {
-    .principal {
-        padding: 0.5em 0.5em 6em 0.5em;
-    }
-
-    /* Círculo más compacto para móviles pequeños (iPhone SE, etc.) */
-    .circulo {
-        width: 180px;
-        height: 180px;
-        border-width: 6px;
-    }
-
-    .contador {
-        font-size: 1.8em;
-    }
-
-    .circulo button {
-        width: 38px;
-        height: 38px;
-        font-size: 1.2em;
-    }
-
-    .controles button {
-        padding: 0.7em 1em;
-        font-size: 0.85em;
-    }
-
-    .controles span.fases {
-        font-size: 0.85em;
-        padding: 0.6em;
     }
 }
 
