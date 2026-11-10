@@ -15,7 +15,7 @@
 }
 /*Propiedades del cuerpo de la página*/
 body{
-    background: url("/imagenes/stocksnap-man-2562325_1920.jpg");
+    background: url("imagenes/stocksnap-man-2562325_1920.jpg");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center right;
