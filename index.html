@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!--Metadatos de la aplicación-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pomodoro | Carlos Sánchez</title>
+    <link rel="stylesheet" href="styles.css" type="text/css">
+    <link rel="icon" href="imagenes/pngwing.com.png">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.2/font/bootstrap-icons.min.css">
+</head>
+<body>
+<!--Header principal de la aplicación donde está el logo y el panel de tareas -->
+<header class="header">
+    <h1>Pomodoro Carlos<img src="imagenes/pngwing.com.png" width="30" height="30"></h1>
+    <div>
+    <!--Botón de Tareas-->
+    <button class="btn-tareas">Tareas<i class="bi bi-list-task"></i></button>
+    <div>
+        <!--Panel de tareas-->
+        <div id="panel-tareas">
+            <div class="agregarTarea">
+            <input type="text" id="input-tarea" placeholder="Busca/Escribe una tarea...">
+            <button id="btn-agregar"><i class="bi bi-file-earmark-plus"></i></button>
+            </div>
+            <div>
+            <!--Lista para manejar las tareas pendientes desde javascript-->
+            <ul id="lista-tareas"></ul>
+            </div>
+        </div>
+    </div>
+    </div>
+</header>
+<!--Contenido Principal de la Aplicación-->
+<main class="principal">
+    <div class="card_contador">
+        <!--Parte donde se maneja la parte del contador-->
+        <div class="circulo">
+            <button class="menos">-</button><!--Botón de menos--->
+            <span class="contador">0</span>
+            <button class="mas">+</button><!--Botón de más-->
+        </div>
+    <!--Controles para manejar el cronómetro-->
+    <div class="controles">
+        <button class="iniciar bi bi-caret-right-fill"></button>
+        <button class="btn-detener-alarma bi bi-stopwatch-fill" style="display: none;"> Detener Alarma</button>
+        <button class="reiniciar">Reiniciar</button>
+        <span class="fases"></span>
+    </div>
+    </div>
+</main>
+
+<!--Controles para cambiar el método Pomodoro-->
+<div class="pomodoro">
+        <nav class="navegacion">
+            <a href="#" data-tiempo="1500" data-imagen="imagenes/stocksnap-man-2562325_1920.jpg">Concentración<i class="bi bi-stopwatch-fill"></i></a>
+            <a href="#" data-tiempo="300" data-imagen="imagenes/chikilino-field-4452538_1920.jpg">Relajación Corta<i class="bi bi-battery-charging"></i></a>
+            <a href="#" data-tiempo="900"data-imagen="imagenes/olgavolkovitskaia-breakfast-8100880_1920.jpg">Relajación Larga<i class="bi bi-battery-low"></i></a>
+        </nav>
+        <span>Método Pomodoro</span>
+</div>
+<footer>
+</footer>
+<script src="script.js"></script>
+</body>
+</html>

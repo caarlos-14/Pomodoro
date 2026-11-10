@@ -1,0 +1,366 @@
+
+/*Colores principales de la aplicación*/
+:root{
+    --colorPrimary:rgba(255, 0, 0,0.7);
+    --colorSecondary:#000000;
+    --colorText:#ffff;
+}
+
+/*Propiedades globales*/
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+/*Propiedades del cuerpo de la página*/
+body{
+    background: url("/imagenes/stocksnap-man-2562325_1920.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center right;
+    height: 80%;
+    position: relative;   
+}
+body::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    z-index: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+/*NAVEGACIÓN -> NAV*/
+.header {
+    position: relative;
+    z-index: 2;
+    color: var(--colorText) ;  
+    text-decoration: none;
+    padding: 0.5em 0.8em;
+    display: flex;
+    justify-content: space-between;
+}
+
+.header h1{
+    display: flex;
+    gap: 0.3em;
+}
+
+.header button{
+    color: var(--colorText);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 1em;
+    font-size: 1em;
+    border: 0.6px solid var(--colorText);
+    border-radius: 40px;
+    box-shadow: inset 0 0 6px var(--colorText);
+    padding: 0.3em 0.8em;
+    background-color: var(--colorPrimary);
+}
+
+.header i {
+font-size: 1.4em;
+}
+
+/*NAVEGACIÓN -> NAV*/
+.navegacion{
+position: absolute;
+z-index: 3;
+bottom: 10%;
+width: 100%;
+max-width: 80%;
+padding: 1.2em;
+display: flex;
+justify-content: space-between;
+align-items: center;
+background-color: var(--colorSecondary);
+transform: translateX(-50%);
+border-radius: 10px;
+left: 50%;
+cursor: pointer;
+}
+.navegacion a{
+    text-decoration: none;
+    color: var(--colorText);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5em;
+    font-size: 1.2em;
+}
+
+.navegacion a i {
+font-size: 15px;
+}
+.pomodoro{
+    width: 100%;
+    position: relative;
+    z-index: 4;
+    background-color: rgba(60, 58, 58, 0.3);
+    box-shadow: 0 0 4px var(--colorText);
+    height: 30vh;
+}
+
+.pomodoro span{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1em;
+    color: var(--colorText);
+    font-size: 2em;
+}
+/*MAIN -> Principal*/
+.principal{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 2em;
+    min-height: 60vh;
+}
+/*Propiedades para el cronometro*/
+.card_contador{
+    position: relative;
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    gap: 1em;
+    width: 100%;
+    max-width: 500px;
+    height: 60vh;
+    max-height: 400px;
+}
+.circulo{
+    width: 80px;
+    height: 80px;
+    border: 8px solid;
+    border-radius: 50%;
+    padding: 1em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 7em;
+    background-color: rgba(255, 0, 0,0.1);
+    gap: 1em;
+}
+/*Los botones de + y -*/
+.circulo button{
+    color: var(--colorText);
+    border-radius: 100%;
+    width: 80px;
+    background: none;
+    height: 80px;
+    font-size: 2em;
+    border: none;
+    cursor: pointer;
+}
+/*Contador principal de la app*/
+.contador{
+    color: var(--colorText);
+    font-size: 2.5em;
+}
+.controles button{
+    padding: 1em 1.5em;
+    border-radius: 20px;
+    background-color: var(--colorPrimary);
+    border: none;
+    box-shadow: 0 1px 3px var(--colorText);
+    color: var(--colorText);
+    margin: 0.5em;
+    cursor: pointer;
+}
+
+.controles span{
+    color: var(--colorSecondary);
+    padding: 0.8em;
+    border-radius: 20px;
+    background-color: var(--colorText);
+
+}
+/* ==========================================
+   PANEL DE TAREAS MODERNO
+   ========================================== */
+#panel-tareas {
+    position: absolute;
+    right: 1.5%;
+    top: 60px;
+    /* Asegura que no se pegue al header */
+    background: #1e1e1e;
+    /* Fondo oscuro acorde a la app */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 1.2em;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    color: var(--colorText);
+    width: 320px;
+    z-index: 100;
+    display: none;
+    /* Se mantiene tu lógica de ocultar/mostrar con JS */
+    flex-direction: column;
+    gap: 1em;
+    animation: fadeIn 0.2s ease-in-out;
+}
+
+/* Animación de apertura suave */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Contenedor del input y botón de agregar */
+.agregarTarea {
+    display: flex;
+    gap: 0.5em;
+    align-items: center;
+}
+
+#input-tarea {
+    flex: 1;
+    background-color: #2c2c2c;
+    border: 1px solid #444;
+    border-radius: 8px;
+    padding: 0.6em 0.8em;
+    color: var(--colorText);
+    font-size: 0.95em;
+    outline: none;
+    transition: border-color 0.2s;
+    height: auto;
+    /* Corregido el problema del height: 10% */
+}
+
+#input-tarea:focus {
+    border-color: var(--colorPrimary);
+}
+
+#input-tarea::placeholder {
+    color: #888;
+}
+
+/* Botón de agregar tarea principal */
+#btn-agregar {
+    background-color: var(--colorPrimary);
+    color: var(--colorText);
+    border: none;
+    border-radius: 8px;
+    width: 38px;
+    height: 38px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.2s, transform 0.1s;
+}
+
+#btn-agregar:hover {
+    filter: brightness(1.2);
+}
+
+#btn-agregar:active {
+    transform: scale(0.95);
+}
+
+#btn-agregar i {
+    font-size: 1.1em !important;
+}
+
+/* Lista de tareas */
+#lista-tareas {
+    list-style: none;
+    max-height: 130px;
+    overflow-y: auto;
+    /* Cambiado a scroll vertical limpio */
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+    padding-right: 4px;
+}
+
+/* Estilo de la barra de desplazamiento para navegadores modernos */
+#lista-tareas::-webkit-scrollbar {
+    width: 6px;
+}
+
+#lista-tareas::-webkit-scrollbar-thumb {
+    background: #444;
+    border-radius: 4px;
+}
+
+/* Elementos de la lista (Tareas individuales) */
+#lista-tareas li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #2c2c2c;
+    padding: 0.6em 0.8em;
+    border-radius: 8px;
+    font-size: 0.95em;
+    border-left: 3px solid var(--colorPrimary);
+    animation: slideIn 0.2s ease;
+}
+
+#lista-tareas li:nth-child(1){
+    margin-top: 0.6em;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Texto de la tarea */
+#lista-tareas li span {
+    flex: 1;
+    margin-right: 0.5em;
+}
+
+/* Botón de eliminar dentro del elemento li */
+#lista-tareas li button {
+    background: none;
+    border: none;
+    color: #ff6b6b;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px;
+    border-radius: 4px;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+#lista-tareas li button:hover {
+    background-color: rgba(255, 107, 107, 0.15);
+    color: #ff3838;
+}
+
+#lista-tareas li button i {
+    font-size: 1em !important;
+}
+
+
+
+
+
+
+
