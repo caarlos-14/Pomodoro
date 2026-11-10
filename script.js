@@ -56,6 +56,7 @@ enlaces.forEach(enlace =>{
             document.body.style.backgroundImage = `url('${ruta}')` ;
 
         tiempoActual = segundosTotal;
+        tiempoResta = 0;
         formateoTiempo(tiempoActual);
     })
 
@@ -65,6 +66,9 @@ enlaces.forEach(enlace =>{
 //Iniciar el evento para contar el tiempo
 buttonStart.addEventListener("click", () =>{
 
+        if(tiempoResta <= 0) {
+            tiempoResta = tiempoActual;
+        }
 
     if(nFases == 4 && buttonStart.textContent.includes("Cambiar Relajación Larga")) {
         // Buscamos el enlace del descanso largo en la navegación (el que tiene data-tiempo="900")
@@ -99,13 +103,17 @@ buttonStart.addEventListener("click", () =>{
         buttonStart.textContent = " Cambiar Relajación Larga"
         return;
     }
-    tiempoResta = tiempoActual;
     buttonStart.classList.remove("bi-caret-right-fill")
     buttonStart.classList.add("bi-app");
     buttonMas.style.display = "none";
     buttonMenos.style.display = "none";
 
     if(intervalo == null){
+
+    if(tiempoResta <= 0) {
+            tiempoResta = tiempoActual;
+    }
+
     intervalo = setInterval(() =>{
         if(tiempoResta > 0){
         tiempoResta--;
@@ -193,6 +201,8 @@ btnDetenerAlarma.addEventListener("click", () =>{
 //Botón para aumentar el tiempo del cronometro
 buttonMas.addEventListener("click", () =>{
     tiempoActual += 30;
+    segundosTotal = tiempoActual;
+    tiempoResta = tiempoActual;   
     formateoTiempo(tiempoActual);
 })
 
@@ -200,6 +210,8 @@ buttonMas.addEventListener("click", () =>{
 buttonMenos.addEventListener("click", () =>{
     if(tiempoActual > 0){
         tiempoActual -= 30;
+        segundosTotal = tiempoActual;
+        tiempoResta = tiempoActual;   
         formateoTiempo(tiempoActual);   
     }
 })
