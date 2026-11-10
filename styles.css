@@ -368,7 +368,7 @@ font-size: 15px;
     }
 
     body::after{
-        height: 80%;
+        height: 80vh;
     }
 
     .header h1 {
