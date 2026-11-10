@@ -367,6 +367,10 @@ font-size: 15px;
         align-items: center;
     }
 
+    body::after{
+        height: 80%;
+    }
+
     .header h1 {
         font-size: 1.25em;
         gap: 0.2em;
@@ -409,44 +413,7 @@ font-size: 15px;
         top: 55px;
     }
 }
-/* ==========================================
-   RESPONSIVE: NAVEGACIÓN INFERIOR POMODORO
-   ========================================== */
-@media (max-width: 768px) {
-    .pomodoro {
-        height: 22vh;
-    }
 
-    .navegacion {
-        width: 95%;
-        max-width: 95%;
-        padding: 0.6em 0.5em;
-        overflow-x: auto;
-        /* Permite deslizar horizontalmente si la pantalla es muy estrecha */
-        justify-content: flex-start;
-        gap: 1.2em;
-        -webkit-overflow-scrolling: touch;
-    }
-
-    /* Ocultamos la barra de scroll visualmente en móviles pero mantenemos la funcionalidad */
-    .navegacion::-webkit-scrollbar {
-        display: none;
-    }
-
-    .navegacion {
-        scrollbar-width: none;
-    }
-
-    .navegacion a {
-        font-size: 0.8em;
-        white-space: nowrap;
-        /* Evita que el texto de los botones salte de línea */
-    }
-
-    .pomodoro span {
-        font-size: 1.1em;
-    }
-}
 /* ==========================================
    RESPONSIVE: CONTENIDO PRINCIPAL & CONTADOR
    ========================================== */
@@ -454,7 +421,7 @@ font-size: 15px;
 
     /* Ajustamos el contenedor principal para dejar espacio al nav inferior */
     .principal {
-        min-height: 100vh;
+        min-height: 50vh;
         gap: 1em;
         padding: 1em 1em 5em 1em;
     }
