@@ -357,9 +357,163 @@ font-size: 15px;
 #lista-tareas li button i {
     font-size: 1em !important;
 }
+/* ==========================================
+   RESPONSIVE: BODY & ESTRUCTURA GENERAL
+   ========================================== */
+body {
+    min-height: 100vh;
+    overflow-x: hidden;
+}
 
+body::after {
+    min-height: 100vh;
+}
 
+@media (max-width: 768px) {
+    body {
+        background-position: center center;
+    }
+}
+/* ==========================================
+   RESPONSIVE: HEADER
+   ========================================== */
+@media (max-width: 768px) {
+    .header {
+        padding: 0.8em 1em;
+        align-items: center;
+    }
 
+    .header h1 {
+        font-size: 1.4em;
+    }
+
+    .header button {
+        font-size: 0.85em;
+        padding: 0.4em 0.7em;
+        gap: 0.5em;
+    }
+
+    .header i {
+        font-size: 1.2em;
+    }
+}
+
+@media (max-width: 480px) {
+    .header h1 {
+        font-size: 1.1em;
+    }
+
+    .header button {
+        font-size: 0.75em;
+    }
+}
+/* ==========================================
+   RESPONSIVE: BARRA DE NAVEGACIÓN
+   ========================================== */
+@media (max-width: 768px) {
+    .navegacion {
+        width: 90%;
+        max-width: 90%;
+        bottom: 5%;
+        padding: 0.8em 1em;
+        gap: 0.5em;
+    }
+
+    .navegacion a {
+        font-size: 0.95em;
+        gap: 0.3em;
+    }
+}
+
+@media (max-width: 480px) {
+    .navegacion {
+        width: 95%;
+        padding: 0.6em 0.8em;
+        overflow-x: auto;
+        /* Permite scroll horizontal si hay muchos enlaces */
+        justify-content: space-evenly;
+    }
+
+    .navegacion a {
+        font-size: 0.8em;
+        white-space: nowrap;
+    }
+}
+/* ==========================================
+   RESPONSIVE: CRONÓMETRO Y CONTADOR
+   ========================================== */
+@media (max-width: 768px) {
+    .principal {
+        min-height: auto;
+        padding: 2em 0 6em 0;
+        /* Espacio inferior para no tapar con el nav */
+    }
+
+    .card_contador {
+        height: auto;
+        max-height: none;
+    }
+
+    .circulo {
+        width: 200px;
+        height: 200px;
+        padding: 0;
+        /* Reset del padding excesivo para control por flex */
+    }
+
+    .contador {
+        font-size: 2em;
+    }
+
+    .circulo button {
+        width: 50px;
+        height: 50px;
+        font-size: 1.5em;
+    }
+}
+
+@media (max-width: 480px) {
+    .circulo {
+        width: 170px;
+        height: 170px;
+    }
+
+    .contador {
+        font-size: 1.6em;
+    }
+
+    .controles button {
+        padding: 0.8em 1.2em;
+        font-size: 0.9em;
+        margin: 0.3em;
+    }
+}
+/* ==========================================
+   RESPONSIVE: PANEL DE TAREAS
+   ========================================== */
+@media (max-width: 768px) {
+    #panel-tareas {
+        width: 90%;
+        max-width: 360px;
+        right: 5%;
+        left: 5%;
+        margin: 0 auto;
+        top: 70px;
+    }
+}
+
+@media (max-width: 480px) {
+    #panel-tareas {
+        width: 92%;
+        top: 65px;
+        padding: 1em;
+    }
+
+    #lista-tareas {
+        max-height: 180px;
+        /* Un poco más de espacio en pantallas pequeñas */
+    }
+}
 
 
 
