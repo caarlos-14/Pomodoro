@@ -19,7 +19,7 @@ body{
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center right;
-    height: 80%;
+    min-height:100%;
     position: relative;   
 }
 body::after {
@@ -28,7 +28,7 @@ body::after {
     width: 100%;
     top: 0;
     left: 0;
-    height: 100vh;
+    height: 100%;
     z-index: 0;
     background-color: rgba(0, 0, 0, 0.5);
 }
@@ -365,10 +365,6 @@ font-size: 15px;
     .header {
         padding: 0.6em 1em;
         align-items: center;
-    }
-
-    body::after{
-        height: 80vh;
     }
 
     .header h1 {
