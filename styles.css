@@ -357,44 +357,39 @@ font-size: 15px;
 #lista-tareas li button i {
     font-size: 1em !important;
 }
-/* ==========================================
-   RESPONSIVE: BODY & ESTRUCTURA GENERAL
-   ========================================== */
-body {
-    min-height: 100vh;
-    overflow-x: hidden;
-}
 
-body::after {
-    min-height: 100vh;
-}
-
-@media (max-width: 768px) {
-    body {
-        background-position: center center;
-    }
-}
 /* ==========================================
-   RESPONSIVE: HEADER
+   RESPONSIVE: HEADER & PANEL DE TAREAS
    ========================================== */
 @media (max-width: 768px) {
     .header {
-        padding: 0.8em 1em;
+        padding: 0.6em 1em;
         align-items: center;
     }
 
     .header h1 {
-        font-size: 1.4em;
+        font-size: 1.25em;
+        gap: 0.2em;
     }
 
-    .header button {
+    .header h1 img {
+        width: 24px;
+        height: 24px;
+    }
+
+    .header button.btn-tareas {
         font-size: 0.85em;
-        padding: 0.4em 0.7em;
+        padding: 0.35em 0.7em;
         gap: 0.5em;
     }
 
-    .header i {
-        font-size: 1.2em;
+    /* El panel de tareas pasa a posicionarse mejor centrado en móviles */
+    #panel-tareas {
+        width: 90vw;
+        max-width: 320px;
+        right: 5%;
+        top: 60px;
+        padding: 1em;
     }
 }
 
@@ -403,118 +398,172 @@ body::after {
         font-size: 1.1em;
     }
 
-    .header button {
+    .header button.btn-tareas {
         font-size: 0.75em;
+        padding: 0.3em 0.6em;
+    }
+
+    #panel-tareas {
+        width: 92vw;
+        right: 4%;
+        top: 55px;
     }
 }
 /* ==========================================
-   RESPONSIVE: BARRA DE NAVEGACIÓN
+   RESPONSIVE: NAVEGACIÓN INFERIOR POMODORO
    ========================================== */
 @media (max-width: 768px) {
+    .pomodoro {
+        height: 25vh;
+        /* Reduce un poco la altura de la sección inferior */
+    }
+
     .navegacion {
-        width: 90%;
-        max-width: 90%;
-        bottom: 5%;
-        padding: 0.8em 1em;
-        gap: 0.5em;
+        width: 92%;
+        max-width: 92%;
+        padding: 0.8em;
+        bottom: 8%;
+        left: 50%;
+        transform: translateX(-50%);
     }
 
     .navegacion a {
         font-size: 0.95em;
         gap: 0.3em;
     }
+
+    .navegacion a i {
+        font-size: 13px;
+    }
+
+    .pomodoro span {
+        font-size: 1.4em;
+        padding: 0.5em;
+    }
 }
 
 @media (max-width: 480px) {
+    .pomodoro {
+        height: 22vh;
+    }
+
     .navegacion {
         width: 95%;
-        padding: 0.6em 0.8em;
+        max-width: 95%;
+        padding: 0.6em 0.5em;
         overflow-x: auto;
-        /* Permite scroll horizontal si hay muchos enlaces */
-        justify-content: space-evenly;
+        /* Permite deslizar horizontalmente si la pantalla es muy estrecha */
+        justify-content: flex-start;
+        gap: 1.2em;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    /* Ocultamos la barra de scroll visualmente en móviles pero mantenemos la funcionalidad */
+    .navegacion::-webkit-scrollbar {
+        display: none;
+    }
+
+    .navegacion {
+        scrollbar-width: none;
     }
 
     .navegacion a {
         font-size: 0.8em;
         white-space: nowrap;
+        /* Evita que el texto de los botones salte de línea */
+    }
+
+    .pomodoro span {
+        font-size: 1.1em;
     }
 }
 /* ==========================================
-   RESPONSIVE: CRONÓMETRO Y CONTADOR
+   RESPONSIVE: CONTENIDO PRINCIPAL & CONTADOR
    ========================================== */
 @media (max-width: 768px) {
+
+    /* Ajustamos el contenedor principal para dejar espacio al nav inferior */
     .principal {
-        min-height: auto;
-        padding: 2em 0 6em 0;
-        /* Espacio inferior para no tapar con el nav */
+        min-height: 50vh;
+        gap: 1em;
+        padding: 1em 1em 5em 1em;
     }
 
     .card_contador {
         height: auto;
         max-height: none;
+        gap: 0.8em;
     }
 
+    /* Reducimos el círculo del contador para que quepa en pantallas medianas */
     .circulo {
-        width: 200px;
-        height: 200px;
+        width: 220px;
+        height: 220px;
         padding: 0;
-        /* Reset del padding excesivo para control por flex */
+        /* Anulamos el padding de 7em que rompía la estructura */
+        justify-content: space-around;
     }
 
     .contador {
-        font-size: 2em;
+        font-size: 2.2em;
     }
 
+    /* Botones de + y - dentro del círculo */
     .circulo button {
-        width: 50px;
-        height: 50px;
-        font-size: 1.5em;
-    }
-}
-
-@media (max-width: 480px) {
-    .circulo {
-        width: 170px;
-        height: 170px;
+        width: 45px;
+        height: 45px;
+        font-size: 1.4em;
     }
 
-    .contador {
-        font-size: 1.6em;
+    /* Controles de iniciar / reiniciar / fases */
+    .controles {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        gap: 0.5em;
     }
 
     .controles button {
         padding: 0.8em 1.2em;
         font-size: 0.9em;
-        margin: 0.3em;
-    }
-}
-/* ==========================================
-   RESPONSIVE: PANEL DE TAREAS
-   ========================================== */
-@media (max-width: 768px) {
-    #panel-tareas {
-        width: 90%;
-        max-width: 360px;
-        right: 5%;
-        left: 5%;
-        margin: 0 auto;
-        top: 70px;
+        margin: 0.2em;
+        border-radius: 15px;
     }
 }
 
 @media (max-width: 480px) {
-    #panel-tareas {
-        width: 92%;
-        top: 65px;
-        padding: 1em;
+    .principal {
+        padding: 0.5em 0.5em 6em 0.5em;
     }
 
-    #lista-tareas {
-        max-height: 180px;
-        /* Un poco más de espacio en pantallas pequeñas */
+    /* Círculo más compacto para móviles pequeños (iPhone SE, etc.) */
+    .circulo {
+        width: 180px;
+        height: 180px;
+        border-width: 6px;
+    }
+
+    .contador {
+        font-size: 1.8em;
+    }
+
+    .circulo button {
+        width: 38px;
+        height: 38px;
+        font-size: 1.2em;
+    }
+
+    .controles button {
+        padding: 0.7em 1em;
+        font-size: 0.85em;
+    }
+
+    .controles span.fases {
+        font-size: 0.85em;
+        padding: 0.6em;
     }
 }
-
 
 
 
