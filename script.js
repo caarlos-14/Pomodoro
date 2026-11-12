@@ -13,14 +13,60 @@ let btnAgregar = document.getElementById("btn-agregar");
 let listaTareas = document.getElementById("lista-tareas");
 let btnBuscar = document.getElementById("btn-buscar");
 let fases = document.querySelector(".fases");
+
+//Variables del Modal Personalizado
+const modalPersonalizado = document.getElementById("custom-modal");
+const modalMensaje = document.getElementById("modal-mensaje");
+const modalBotones = document.getElementById("modal-botones");
+
 //Variables de uso interno
 let segundosTotal = 0;
 let tiempoActual = 1500;
 let tiempoResta = 0;
-let intervalo = null
-let nFases = 0
+let intervalo = null;
+let nFases = 0;
+
 //Sonido Alarma
 const sonidoAlarma = new Audio("imagenes/lesiakower-lo-fi-alarm-clock-243766.mp3");
+
+//Funciones para simular Alert y Confirm mediante Promesas
+function miAlert(mensaje) {
+    return new Promise((resolve) => {
+        modalMensaje.textContent = mensaje;
+        modalBotones.innerHTML = `<button class="btn-modal-aceptar">Aceptar</button>`;
+        modalPersonalizado.style.display = "flex";
+
+        const btnAceptar = modalBotones.querySelector(".btn-modal-aceptar");
+        btnAceptar.onclick = () => {
+            modalPersonalizado.style.display = "none";
+            resolve();
+        };
+    });
+}
+
+function miConfirm(mensaje) {
+    return new Promise((resolve) => {
+        modalMensaje.textContent = mensaje;
+        modalBotones.innerHTML = `
+            <button class="btn-modal-aceptar">Aceptar</button>
+            <button class="btn-modal-cancelar">Cancelar</button>
+        `;
+        modalPersonalizado.style.display = "flex";
+
+        const btnAceptar = modalBotones.querySelector(".btn-modal-aceptar");
+        const btnCancelar = modalBotones.querySelector(".btn-modal-cancelar");
+
+        btnAceptar.onclick = () => {
+            modalPersonalizado.style.display = "none";
+            resolve(true);
+        };
+
+        btnCancelar.onclick = () => {
+            modalPersonalizado.style.display = "none";
+            resolve(false);
+        };
+    });
+}
 
 //Función para formatear el tiempo
 function formateoTiempo(segundosTotal){
@@ -37,150 +83,141 @@ function formateoTiempo(segundosTotal){
 //Llamamos a la función
 formateoTiempo(tiempoActual);
 
-//A travñes de un bucle accedemos a los tiempos de cada opción
+//A través de un bucle accedemos a los tiempos de cada opción
 enlaces.forEach(enlace =>{
-    enlace.addEventListener("click", (e) =>{
+    enlace.addEventListener("click", async (e) =>{
         e.preventDefault();
         if(intervalo != null) return;
 
         segundosTotal = parseInt(enlace.getAttribute('data-tiempo'));
 
         if(tiempoActual != segundosTotal){
-            const confirmar = confirm("¿Estas seguro de que quieres cambiar el modo?")
-    
-        if(!confirmar) return;
+            const confirmar = await miConfirm("¿Estas seguro de que quieres cambiar el modo?");
+            if(!confirmar) return;
         }
 
         const ruta = enlace.getAttribute("data-imagen");
         
-            document.body.style.backgroundImage = `url('${ruta}')` ;
+        document.body.style.backgroundImage = `url('${ruta}')`;
 
         tiempoActual = segundosTotal;
         tiempoResta = 0;
         formateoTiempo(tiempoActual);
-    })
-
+    });
 });
 
-
 //Iniciar el evento para contar el tiempo
-buttonStart.addEventListener("click", () =>{
+buttonStart.addEventListener("click", async () =>{
 
-        if(tiempoResta <= 0) {
-            tiempoResta = tiempoActual;
-        }
+    if(tiempoResta <= 0) {
+        tiempoResta = tiempoActual;
+    }
 
     if(nFases == 4 && buttonStart.textContent.includes("Cambiar Relajación Larga")) {
-        // Buscamos el enlace del descanso largo en la navegación (el que tiene data-tiempo="900")
         const enlaceRelajacionLarga = document.querySelector('.navegacion a[data-tiempo="900"]');
         
         if(enlaceRelajacionLarga) {
             segundosTotal = parseInt(enlaceRelajacionLarga.getAttribute('data-tiempo'));
             const ruta = enlaceRelajacionLarga.getAttribute("data-imagen");
             
-            // Cambiamos el fondo
             document.body.style.backgroundImage = `url('${ruta}')`;
 
-            // Actualizamos los tiempos
             tiempoActual = segundosTotal;
             tiempoResta = tiempoActual;
             formateoTiempo(tiempoActual);
         }
 
-        // Restauramos el botón a su estado normal de Play y limpiamos las fases
         nFases = 0;
         fases.textContent = "Fase " + nFases;
         buttonStart.classList.remove("bi-arrow-down-up");
         buttonStart.classList.add("bi-caret-right-fill");
-        buttonStart.textContent = ""; // Limpiamos el texto extra si lo hubiera, manteniendo solo el icono
+        buttonStart.textContent = ""; 
         return;
     }
 
     if(nFases == 4) {
-        alert("Tomate un descanso!") 
+        await miAlert("Tomate un descanso!"); 
         buttonStart.classList.remove("bi-caret-right-fill");
         buttonStart.classList.add("bi-arrow-down-up");
-        buttonStart.textContent = " Cambiar Relajación Larga"
+        buttonStart.textContent = " Cambiar Relajación Larga";
         return;
     }
-    buttonStart.classList.remove("bi-caret-right-fill")
+    
+    buttonStart.classList.remove("bi-caret-right-fill");
     buttonStart.classList.add("bi-app");
     buttonMas.style.display = "none";
     buttonMenos.style.display = "none";
 
     if(intervalo == null){
-
-    if(tiempoResta <= 0) {
+        if(tiempoResta <= 0) {
             tiempoResta = tiempoActual;
-    }
-
-    intervalo = setInterval(() =>{
-        if(tiempoResta > 0){
-        tiempoResta--;
-        formateoTiempo(tiempoResta)
-    }else{
-        clearInterval(intervalo);
-        intervalo = null;
-        sonidoAlarma.loop = true; 
-        sonidoAlarma.play();
-        if(tiempoActual >= 10){
-            nFases++;
         }
-        fases.textContent = "Fase " + nFases;
-        btnDetenerAlarma.style.display = "inline-block";
-        buttonStart.style.display = "none";
-    }
-    },1000);
-    }else{
-        buttonStart.classList.remove("bi-app")
+
+        intervalo = setInterval(() =>{
+            if(tiempoResta > 0){
+                tiempoResta--;
+                formateoTiempo(tiempoResta);
+            }else{
+                clearInterval(intervalo);
+                intervalo = null;
+                sonidoAlarma.loop = true; 
+                sonidoAlarma.play();
+                if(tiempoActual >= 10){
+                    nFases++;
+                }
+                fases.textContent = "Fase " + nFases;
+                btnDetenerAlarma.style.display = "inline-block";
+                buttonStart.style.display = "none";
+            }
+        }, 1000);
+    } else {
+        buttonStart.classList.remove("bi-app");
         buttonStart.classList.add("bi-caret-right-fill");
         clearInterval(intervalo);
         intervalo = null;
         buttonMas.style.display = "block";
         buttonMenos.style.display = "block";
     }
-
 });
 
 //Reiniciamos el contador al valor con el que arranco
-buttonReinicio.addEventListener("click", () =>{
-    if(intervalo != null) return alert("Deten el cronometro para reiniciar!");
+buttonReinicio.addEventListener("click", async () =>{
+    if(intervalo != null) {
+        await miAlert("Deten el cronometro para reiniciar!");
+        return;
+    }
     tiempoResta = tiempoActual;
-    formateoTiempo(tiempoActual); // Llamamos a la función para no perder el formato
+    formateoTiempo(tiempoActual); 
 });
 
 //Botón para detener la alarma cuando suene
 btnDetenerAlarma.addEventListener("click", () =>{
-            sonidoAlarma.pause();//Pausamos el sonido
-            sonidoAlarma.currentTime = 0 //Lo ponemos a 0
-            sonidoAlarma.loop = false; // Después de pausar ponemos el bucle en false
+    sonidoAlarma.pause();
+    sonidoAlarma.currentTime = 0;
+    sonidoAlarma.loop = false; 
 
-            //Reiniciamos los valores
-            buttonStart.classList.remove("bi-app")
-            buttonStart.classList.add("bi-caret-right-fill");
-            buttonMas.style.display = "block";
-            buttonMenos.style.display = "block";
-            btnDetenerAlarma.style.display = "none";
-            buttonStart.style.display = "inline";
-            formateoTiempo(tiempoActual);
+    buttonStart.classList.remove("bi-app");
+    buttonStart.classList.add("bi-caret-right-fill");
+    buttonMas.style.display = "block";
+    buttonMenos.style.display = "block";
+    btnDetenerAlarma.style.display = "none";
+    buttonStart.style.display = "inline";
+    formateoTiempo(tiempoActual);
 
-        if(tiempoActual >= 1500 && nFases != 4){
-       
+    if(tiempoActual >= 1500 && nFases != 4){
         const enlaceRelajacionCorta = document.querySelector('.navegacion a[data-tiempo="300"]');
         
         if(enlaceRelajacionCorta) {
             segundosTotal = parseInt(enlaceRelajacionCorta.getAttribute('data-tiempo'));
             const ruta = enlaceRelajacionCorta.getAttribute("data-imagen");
             
-            // Cambiamos el fondo
             document.body.style.backgroundImage = `url('${ruta}')`;
 
-            // Actualizamos los tiempos
             tiempoActual = segundosTotal;
             tiempoResta = tiempoActual;
             formateoTiempo(tiempoActual);
         }
-    }else if(tiempoActual <= 600 && nFases != 4){  
+    } else if(tiempoActual <= 600 && nFases != 4){  
         const enlaceConcentracion = document.querySelector('.navegacion a[data-tiempo="1500"]');
         
         if(enlaceConcentracion) {
@@ -193,7 +230,7 @@ btnDetenerAlarma.addEventListener("click", () =>{
             tiempoResta = tiempoActual;
             formateoTiempo(tiempoActual);
         }
-    }else {
+    } else {
         formateoTiempo(tiempoActual);
     }
 });
@@ -204,7 +241,7 @@ buttonMas.addEventListener("click", () =>{
     segundosTotal = tiempoActual;
     tiempoResta = tiempoActual;   
     formateoTiempo(tiempoActual);
-})
+});
 
 //Evento para restar Tiempo al cronometro sin que pasa de 0
 buttonMenos.addEventListener("click", () =>{
@@ -214,7 +251,7 @@ buttonMenos.addEventListener("click", () =>{
         tiempoResta = tiempoActual;   
         formateoTiempo(tiempoActual);   
     }
-})
+});
 
 //Evento para mostrar y Ocultar
 btnTarea.addEventListener("click", () =>{
@@ -223,34 +260,26 @@ btnTarea.addEventListener("click", () =>{
     }else{
         panelTareas.style.display = "none";
     }
-})
+});
+
 //Botón para agregar tareas
 btnAgregar.addEventListener("click", () =>{
-    
-    if(valorInput.value == "") return; // valor vacío -> NADA
+    if(valorInput.value == "") return;
 
-    let li = document.createElement("li") //Creamos li en DOM
-    let buttonEliminar = document.createElement("button") // Creamos botón Eliminar
-    buttonEliminar.innerHTML = `<i style="font-size:1em;" class="bi bi-trash"></i>`; //Agregamos el icono
-    li.textContent = valorInput.value; //Agregamos el valor del input
-    listaTareas.appendChild(li); // y añadimos al li
-    li.appendChild(buttonEliminar); // el Botón lo agregamos al li también
+    let li = document.createElement("li");
+    let buttonEliminar = document.createElement("button");
+    buttonEliminar.innerHTML = `<i style="font-size:1em;" class="bi bi-trash"></i>`;
+    li.textContent = valorInput.value;
+    listaTareas.appendChild(li);
+    li.appendChild(buttonEliminar);
 
-    //Evento par eliminar la tarea
     buttonEliminar.addEventListener("click", () =>{
         li.remove();
-    })
+    });
     valorInput.value = "";
-})
+});
 
 document.addEventListener("DOMContentLoaded", () =>{
     panelTareas.style.display = "none";
     fases.textContent = "Fase 0";   
-})
-
-
-
-
-
-
-
+});
